@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Buyer Dashboard - Agri Shop</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <a href="buyer.html" class="logo">Agri Shop</a>
+    <div class="nav-links">
+        <a href="buyer.html" class="active">Home</a>
+        <a href="login.html">Logout</a>
+    </div>
+    <div class="user-info">Welcome, Buyer</div>
+</div>
+
+<!-- Tabs -->
+<div class="tab-bar">
+    <button class="tab-btn active" onclick="openTab('home', this)">Home</button>
+    <button class="tab-btn" onclick="openTab('products', this)">Products</button>
+    <button class="tab-btn" onclick="openTab('categories', this)">Categories</button>
+    <button class="tab-btn" onclick="openTab('cart', this)">My Cart</button>
+    <button class="tab-btn" onclick="openTab('orders', this)">My Orders</button>
+    <button class="tab-btn" onclick="openTab('about', this)">About</button>
+</div>
+
+<div class="main">
+
+    <!-- HOME TAB -->
+    <div id="home" class="tab-content active">
+        <div class="banner">
+            <h3>Welcome to Agri Shop</h3>
+            <p>Buy fresh vegetables, fruits and grains directly from farmers.</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-num">120+</div>
+                <div class="stat-label">Products Available</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num">45+</div>
+                <div class="stat-label">Verified Farmers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num">8</div>
+                <div class="stat-label">Categories</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num">500+</div>
+                <div class="stat-label">Happy Buyers</div>
+            </div>
+        </div>
+
+        <p class="section-title">Featured Products</p>
+        <div class="product-grid" id="featured-products"></div>
+    </div>
+
+    <!-- PRODUCTS TAB -->
+    <div id="products" class="tab-content">
+        <p class="section-title">All Products</p>
+
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="Search products..." oninput="searchProducts()">
+            <select id="filter-cat" onchange="searchProducts()">
+                <option value="">All Categories</option>
+                <option value="Vegetables">Vegetables</option>
+                <option value="Fruits">Fruits</option>
+                <option value="Grains">Grains</option>
+                <option value="Pulses">Pulses</option>
+            </select>
+        </div>
+
+        <div class="product-grid" id="all-products"></div>
+    </div>
+
+    <!-- CATEGORIES TAB -->
+    <div id="categories" class="tab-content">
+        <p class="section-title">Shop by Category</p>
+        <div class="cat-grid">
+            <div class="cat-card" onclick="filterByCategory('Vegetables')">
+                <img class="cat-img" src="../images/cat-vegetables.jpg" alt="Vegetables">
+                <div class="cat-name">Vegetables</div>
+                <div class="cat-count">30 products</div>
+            </div>
+            <div class="cat-card" onclick="filterByCategory('Fruits')">
+                <img class="cat-img" src="../images/cat-fruits.jpg" alt="Fruits">
+                <div class="cat-name">Fruits</div>
+                <div class="cat-count">25 products</div>
+            </div>
+            <div class="cat-card" onclick="filterByCategory('Grains')">
+                <img class="cat-img" src="../images/cat-grains.jpg" alt="Grains">
+                <div class="cat-name">Grains</div>
+                <div class="cat-count">20 products</div>
+            </div>
+            <div class="cat-card" onclick="filterByCategory('Pulses')">
+                <img class="cat-img" src="../images/cat-pulses.jpg" alt="Pulses">
+                <div class="cat-name">Pulses</div>
+                <div class="cat-count">18 products</div>
+            </div>
+            <div class="cat-card" onclick="filterByCategory('Vegetables')">
+                <img class="cat-img" src="../images/cat-rootveg.jpg" alt="Root Vegetables">
+                <div class="cat-name">Root Vegetables</div>
+                <div class="cat-count">12 products</div>
+            </div>
+            <div class="cat-card" onclick="filterByCategory('Grains')">
+                <img class="cat-img" src="../images/cat-corn.jpg" alt="Corn">
+                <div class="cat-name">Corn and Maize</div>
+                <div class="cat-count">8 products</div>
+            </div>
+            <div class="cat-card" onclick="filterByCategory('Fruits')">
+                <img class="cat-img" src="../images/cat-citrus.jpg" alt="Citrus">
+                <div class="cat-name">Citrus Fruits</div>
+                <div class="cat-count">10 products</div>
+            </div>
+            <div class="cat-card" onclick="filterByCategory('Vegetables')">
+                <img class="cat-img" src="../images/cat-leafy.jpg" alt="Leafy Greens">
+                <div class="cat-name">Leafy Greens</div>
+                <div class="cat-count">14 products</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CART TAB -->
+    <div id="cart" class="tab-content">
+        <p class="section-title">My Cart</p>
+        <div id="cart-list"></div>
+        <div id="cart-empty" style="color:#888; font-size:15px; padding:20px 0;">
+            Your cart is empty. Go to Products to add items.
+        </div>
+        <div class="cart-summary" id="cart-summary" style="display:none;">
+            <div class="summary-row"><span>Subtotal</span><span id="subtotal">Rs. 0</span></div>
+            <div class="summary-row"><span>Delivery</span><span style="color:green;">Free</span></div>
+            <div class="total-row"><span>Total</span><span id="total-amount">Rs. 0</span></div>
+            <br>
+            <button class="btn btn-green" style="width:100%; padding:10px;" onclick="placeOrder()">Place Order</button>
+        </div>
+    </div>
+
+    <!-- ORDERS TAB -->
+    <div id="orders" class="tab-content">
+        <p class="section-title">My Orders</p>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="orders-table">
+                    <tr>
+                        <td>#1001</td>
+                        <td>Tomatoes</td>
+                        <td>5 kg</td>
+                        <td>Rs. 250</td>
+                        <td><span class="badge badge-orange">Processing</span></td>
+                    </tr>
+                    <tr>
+                        <td>#1002</td>
+                        <td>Wheat</td>
+                        <td>20 kg</td>
+                        <td>Rs. 700</td>
+                        <td><span class="badge badge-green">Delivered</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ABOUT TAB -->
+    <div id="about" class="tab-content">
+        <p class="section-title">About Agri Shop</p>
+        <div class="info-cards">
+            <div class="info-card">
+                <h4>Our Mission</h4>
+                <p>We connect farmers directly with buyers so farmers earn more and buyers get fresh produce at fair prices.</p>
+            </div>
+            <div class="info-card">
+                <h4>Fast Delivery</h4>
+                <p>Fresh produce delivered to your doorstep within 24 hours of ordering.</p>
+            </div>
+            <div class="info-card">
+                <h4>Quality Check</h4>
+                <p>Every product is verified before listing. Fresh, safe and certified produce only.</p>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Contact Info</th><th>Details</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Address</td><td>Krishi Bhawan, AB Road, Indore, MP</td></tr>
+                    <tr><td>Phone</td><td>+91 98765 43210</td></tr>
+                    <tr><td>Email</td><td>support@agrishop.in</td></tr>
+                    <tr><td>Timings</td><td>Mon - Sat: 9 AM to 6 PM</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="../js/products.js"></script>
+<script src="../js/buyer.js"></script>
+</body>
+</html>

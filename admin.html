@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard - Agri Shop</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <a href="admin.html" class="logo">Agri Shop</a>
+    <div class="nav-links">
+        <a href="admin.html" class="active">Dashboard</a>
+        <a href="login.html">Logout</a>
+    </div>
+    <div class="user-info">Admin Panel</div>
+</div>
+
+<!-- Tabs -->
+<div class="tab-bar">
+    <button class="tab-btn active" onclick="openTab('home', this)">Home</button>
+    <button class="tab-btn" onclick="openTab('users', this)">Users</button>
+    <button class="tab-btn" onclick="openTab('products', this)">Products</button>
+    <button class="tab-btn" onclick="openTab('orders', this)">Orders</button>
+    <button class="tab-btn" onclick="openTab('categories', this)">Categories</button>
+    <button class="tab-btn" onclick="openTab('about', this)">About</button>
+</div>
+
+<div class="main">
+
+    <!-- HOME TAB -->
+    <div id="home" class="tab-content active">
+        <div class="banner">
+            <h3>Admin Dashboard</h3>
+            <p>Manage all users, products, orders and categories from here.</p>
+        </div>
+
+        <div class="stats-row">
+            <div class="stat-box">
+                <div class="stat-num">1,248</div>
+                <div class="stat-label">Total Users</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num">312</div>
+                <div class="stat-label">Farmers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num">936</div>
+                <div class="stat-label">Buyers</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num">2,841</div>
+                <div class="stat-label">Total Products</div>
+            </div>
+            <div class="stat-box">
+                <div class="stat-num">8,492</div>
+                <div class="stat-label">Total Orders</div>
+            </div>
+        </div>
+
+        <p class="section-title">Recent Activity</p>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Time</th><th>Activity</th><th>User</th><th>Role</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>2 mins ago</td><td>New registration</td><td>Suresh Yadav</td><td><span class="badge badge-green">Farmer</span></td></tr>
+                    <tr><td>15 mins ago</td><td>Product listed: Mangoes</td><td>Ramesh Patel</td><td><span class="badge badge-green">Farmer</span></td></tr>
+                    <tr><td>1 hour ago</td><td>Order placed #1042</td><td>Priya Sharma</td><td><span class="badge badge-blue">Buyer</span></td></tr>
+                    <tr><td>2 hours ago</td><td>New registration</td><td>Ankit Joshi</td><td><span class="badge badge-blue">Buyer</span></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- USERS TAB -->
+    <div id="users" class="tab-content">
+        <p class="section-title">Manage Users</p>
+
+        <div class="search-bar">
+            <input type="text" id="user-search" placeholder="Search by name or email..." oninput="searchUsers()">
+            <select id="user-role-filter" onchange="searchUsers()">
+                <option value="">All Roles</option>
+                <option value="Farmer">Farmer</option>
+                <option value="Buyer">Buyer</option>
+            </select>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>City</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="users-table">
+                    <tr>
+                        <td>Ramesh Patel</td>
+                        <td>ramesh@example.com</td>
+                        <td>Farmer</td>
+                        <td>Indore</td>
+                        <td><span class="badge badge-green">Active</span></td>
+                        <td><button class="btn btn-red" onclick="deleteRow(this)">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>Priya Sharma</td>
+                        <td>priya@example.com</td>
+                        <td>Buyer</td>
+                        <td>Bhopal</td>
+                        <td><span class="badge badge-green">Active</span></td>
+                        <td><button class="btn btn-red" onclick="deleteRow(this)">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>Suresh Yadav</td>
+                        <td>suresh@example.com</td>
+                        <td>Farmer</td>
+                        <td>Ujjain</td>
+                        <td><span class="badge badge-orange">Pending</span></td>
+                        <td>
+                            <button class="btn btn-green" onclick="approveUser(this)" style="margin-right:5px;">Approve</button>
+                            <button class="btn btn-red" onclick="deleteRow(this)">Reject</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Ankit Joshi</td>
+                        <td>ankit@example.com</td>
+                        <td>Buyer</td>
+                        <td>Gwalior</td>
+                        <td><span class="badge badge-green">Active</span></td>
+                        <td><button class="btn btn-red" onclick="deleteRow(this)">Remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- PRODUCTS TAB -->
+    <div id="products" class="tab-content">
+        <p class="section-title">All Products</p>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Farmer</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="admin-products-table">
+                    <tr>
+                        <td>Tomatoes</td>
+                        <td>Ramesh Patel</td>
+                        <td>Vegetables</td>
+                        <td>Rs. 50/kg</td>
+                        <td>200 kg</td>
+                        <td><button class="btn btn-red" onclick="deleteRow(this)">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>Wheat</td>
+                        <td>Suresh Yadav</td>
+                        <td>Grains</td>
+                        <td>Rs. 35/kg</td>
+                        <td>500 kg</td>
+                        <td><button class="btn btn-red" onclick="deleteRow(this)">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>Mangoes</td>
+                        <td>Dinesh Kumar</td>
+                        <td>Fruits</td>
+                        <td>Rs. 90/kg</td>
+                        <td>120 kg</td>
+                        <td><button class="btn btn-red" onclick="deleteRow(this)">Remove</button></td>
+                    </tr>
+                    <tr>
+                        <td>Gram (Chana)</td>
+                        <td>Ramesh Patel</td>
+                        <td>Pulses</td>
+                        <td>Rs. 60/kg</td>
+                        <td>80 kg</td>
+                        <td><button class="btn btn-red" onclick="deleteRow(this)">Remove</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ORDERS TAB -->
+    <div id="orders" class="tab-content">
+        <p class="section-title">All Orders</p>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Buyer</th>
+                        <th>Farmer</th>
+                        <th>Product</th>
+                        <th>Qty</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#1042</td>
+                        <td>Priya Sharma</td>
+                        <td>Ramesh Patel</td>
+                        <td>Tomatoes</td>
+                        <td>5 kg</td>
+                        <td>Rs. 250</td>
+                        <td><span class="badge badge-orange">Processing</span></td>
+                    </tr>
+                    <tr>
+                        <td>#1041</td>
+                        <td>Arun Kumar</td>
+                        <td>Ramesh Patel</td>
+                        <td>Wheat</td>
+                        <td>50 kg</td>
+                        <td>Rs. 1,750</td>
+                        <td><span class="badge badge-green">Delivered</span></td>
+                    </tr>
+                    <tr>
+                        <td>#1040</td>
+                        <td>Sunita Rao</td>
+                        <td>Suresh Yadav</td>
+                        <td>Onions</td>
+                        <td>10 kg</td>
+                        <td>Rs. 300</td>
+                        <td><span class="badge badge-green">Delivered</span></td>
+                    </tr>
+                    <tr>
+                        <td>#1039</td>
+                        <td>Ravi Gupta</td>
+                        <td>Dinesh Kumar</td>
+                        <td>Gram (Chana)</td>
+                        <td>20 kg</td>
+                        <td>Rs. 1,200</td>
+                        <td><span class="badge badge-red">Pending</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- CATEGORIES TAB -->
+    <div id="categories" class="tab-content">
+        <p class="section-title">Manage Categories</p>
+
+        <div class="form-panel">
+            <h3>Add New Category</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Category Name</label>
+                    <input type="text" id="cat-name" placeholder="e.g. Exotic Fruits">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <input type="text" id="cat-desc" placeholder="Short description">
+                </div>
+            </div>
+            <button class="btn btn-green" style="padding: 9px 20px;" onclick="addCategory()">Add Category</button>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Category Name</th><th>Description</th><th>Total Products</th><th>Action</th></tr>
+                </thead>
+                <tbody id="cat-table">
+                    <tr><td>Vegetables</td><td>Fresh farm vegetables</td><td>30</td><td><button class="btn btn-red" onclick="deleteRow(this)">Delete</button></td></tr>
+                    <tr><td>Fruits</td><td>Seasonal fresh fruits</td><td>25</td><td><button class="btn btn-red" onclick="deleteRow(this)">Delete</button></td></tr>
+                    <tr><td>Grains</td><td>Wheat, rice, corn</td><td>20</td><td><button class="btn btn-red" onclick="deleteRow(this)">Delete</button></td></tr>
+                    <tr><td>Pulses</td><td>Dal, chana, moong</td><td>18</td><td><button class="btn btn-red" onclick="deleteRow(this)">Delete</button></td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- ABOUT TAB -->
+    <div id="about" class="tab-content">
+        <p class="section-title">About Agri Shop</p>
+        <div class="info-cards">
+            <div class="info-card">
+                <h4>Admin Role</h4>
+                <p>Approve users, manage products, monitor all orders and maintain platform quality.</p>
+            </div>
+            <div class="info-card">
+                <h4>Platform Stats</h4>
+                <p>Track total users, farmers, buyers, products and orders from the home dashboard.</p>
+            </div>
+            <div class="info-card">
+                <h4>Trust and Safety</h4>
+                <p>Review farmer registrations and remove any products that do not meet quality standards.</p>
+            </div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Contact Info</th><th>Details</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Address</td><td>Krishi Bhawan, AB Road, Indore, MP</td></tr>
+                    <tr><td>Phone</td><td>+91 98765 43210</td></tr>
+                    <tr><td>Email</td><td>admin@agrishop.in</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="../js/admin.js"></script>
+</body>
+</html>
