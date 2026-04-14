@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Agri Shop</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+<div class="auth-page">
+    <div class="form-box">
+        <h2>Agri Shop</h2>
+        <p class="subtitle">Login to your account</p>
+
+        <div class="form-group">
+            <label>Select Role</label>
+            <select id="role">
+                <option value="buyer">Buyer</option>
+                <option value="farmer">Farmer</option>
+                <option value="admin">Admin</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="email" placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Enter your password">
+        </div>
+
+        <button class="btn-submit" onclick="login()">Login</button>
+
+        <p class="bottom-link">
+            Don't have an account? <a href="register.html">Register here</a>
+        </p>
+    </div>
+</div>
+
+<script src="../js/login.js"></script>
+</body>
+</html>
